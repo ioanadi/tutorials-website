@@ -7,11 +7,9 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import Nav from '@/components/Nav.vue'
 
 export default Vue.extend({
     name: 'home',
-    components: { Nav }
 })
 </script>
 
@@ -21,7 +19,7 @@ export default Vue.extend({
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
+    color: #3c3939;
 }
 .fixed-full-width {
     position: fixed;

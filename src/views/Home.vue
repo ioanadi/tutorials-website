@@ -4,7 +4,7 @@
         <div class="home__nav">
             <div v-for="(dot,i) in dots" :key="i" :class="['huey-colors nav__dot ' + dot.class]">
                 <div class="nav__subdot" v-for="(subD,subI) in dot.subdots" :key="subI" @click="subD.action">
-                    <!-- <font-awesome-icon :icon="[i==2 ?'fab':'fa', subD.icon]"/> -->
+                    <!-- <font-awesome-icon :icon="['fa', subD.icon]"/> -->
                     <p>{{subD.title}}</p>
                 </div>
                 <p class="nav__dot-title">{{dot.content}}</p>
@@ -111,9 +111,9 @@ const NAV_DOTS = [
     { 
         content: '3D', class: 'thid', 
         subdots: [
-            { icon: 'linkedin', title: 'repulsion', action: function() { router.push('/vue-gl/repulsion') } },
-            { icon: 'facebook', title: 'cube',      action: function() { router.push('/vue-gl/cube') } },
-            { icon: 'github',   title: 'lights',    action: function() { router.push('/vue-gl/lights') } }
+            { icon: 'linkedin', title: 'Repulsion', action: function() { router.push('/vue-gl/repulsion') } },
+            { icon: 'facebook', title: 'Cube',      action: function() { router.push('/vue-gl/cube') } },
+            { icon: 'github',   title: 'Lights',    action: function() { router.push('/vue-gl/lights') } }
         ]
     }
 ] as Array<any>
@@ -177,17 +177,15 @@ export default Vue.extend({
         window.removeEventListener('resize', this.onResize)
     },
     methods: {
-        onResize(event) {
+        onResize(event: any) {
             let innerWidth = event ? event.srcElement.innerWidth : window.innerWidth
 
-            if(innerWidth < 769) {
-                console.log('DISABLE')
+            if(innerWidth < 600) {
                 this.scenes[0].enabled(false)
                 this.scenes[1].enabled(false)
                 this.scenes[2].enabled(false)
                 this.scenes[3].enabled(false)
             } else {
-                console.log('ENABLE')
                 this.scenes[0].enabled(true)
                 this.scenes[1].enabled(true)
                 this.scenes[2].enabled(true)
@@ -299,7 +297,6 @@ $dot-between-distance-mobile: 120px;
             box-shadow: 10px 10px 22px 0px rgba(0, 0, 0, 0.5);
             background: rgb(241, 241, 241);
             font-size: 14px;
-            color: #717171;
             line-height: 2rem;
             text-align: center;
             @media (min-width: 769px) { margin: 2rem 4rem; font-size: 17px; }
@@ -339,7 +336,7 @@ $dot-between-distance-mobile: 120px;
                 padding: 1rem;
                 background: white;
                 @media (min-width: 769px) { margin: 2rem; }
-                h2, p { color: #717171; text-align: center;}
+                h2, p { text-align: center;}
                 p {
                     font-size: 14px;
                     line-height: 2rem;
@@ -350,7 +347,7 @@ $dot-between-distance-mobile: 120px;
     }
 }
 .home__section4 {
-    padding: 3rem 1rem;
+    padding: 2rem 1rem;
     flex-direction: column;
     @media (min-width: 769px) { padding: 3rem 2*$dot-width; }
     .home__s4-contact-box {
