@@ -1,5 +1,6 @@
 <template>
     <div ref="explosion" class="explosion-page">
+        <div class="explosion-link"> <a href='https://github.com/ioanadi/tutorials-website/blob/master/src/views/tutorials/Explosion.vue'> Source code  </a></div>
         <div class="explosion-container">
             <h1>Scroll down</h1>
             <div class="explosion">
@@ -34,9 +35,8 @@ export default Vue.extend({
             .setPin(".explosion-container")
             .on("progress", (event: any) => { 
                 this.progress = event.progress 
-            })
+            });
         this.$scrollmagic.addScene(scene)
-        this.$scrollmagic.attachTo(this.$refs.explosion)
     },
     methods: {
         blockStyle(n: number) {
@@ -66,6 +66,7 @@ $explosion-height: 390px;
 .explosion-page { 
     background-image: linear-gradient(-45deg, #07101b, #bbc5cc);
     background-attachment: fixed;
+    position: relative;
     .explosion-container {
         width: 100%;
         min-height: 100vh;
@@ -79,6 +80,11 @@ $explosion-height: 390px;
             letter-spacing: 1.2rem;
             opacity: .7;
         }
+    }
+    .explosion-link { 
+        position: absolute;
+        right: 2rem; top: 2rem;
+        z-index: 1000;
     }
 }
 .explosion {

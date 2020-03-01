@@ -39,7 +39,9 @@
 import Vue from 'vue'
 import OrbitControls from '../../components/OrbitControls.vue'
 
-const vector3 = (x: number, y: number, z: number) => '' + x + ' ' + y + ' ' + z
+const vector3 = (x: number, y: number, z: number) => {
+    return '' + x + ' ' + y + ' ' + z
+}
 
 export default Vue.extend({
     name: 'Tank',

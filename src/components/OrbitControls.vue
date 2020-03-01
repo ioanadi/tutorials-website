@@ -13,7 +13,7 @@ export default Vue.extend({
     },
     computed: {
         cmr () {
-            return this.vglNamespace.cameras[this.camera];
+            return (this as any).vglNamespace.cameras[(this as any).camera];
         }
     },
     watch: {
@@ -21,7 +21,7 @@ export default Vue.extend({
             handler(cmr) {
                 const controls = new OrbitControls(cmr)
                 controls.addEventListener('change', () => {
-                    this.vglNamespace.update();
+                    (this as any).vglNamespace.update();
                 });
             },
             immediate: true,

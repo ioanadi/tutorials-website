@@ -10,14 +10,14 @@ import Vue from 'vue'
 import Nav from '@/components/Nav.vue'
 
 const LINKS = [
-    { path: '/simples/fan',             name: 'Fan' },
-    { path: '/simples/fan-extended',    name: 'Fan Extended' },
-    { path: '/simples/explosion',       name: 'Explosion' },
-    { path: '/',                        name: 'Home' }
-]
+    { path: '/tutorials/repulsion',   name: 'Repulsion - Vue-GL' },
+    { path: '/tutorials/fan',         name: 'Fan - Vue ' },
+    { path: '/tutorials/explosion',   name: 'Explosion - Vue-scrollmagic' },
+    { path: '/',                      name: 'Home' }
+] 
 
 export default Vue.extend({
-    name: 'SimpleExamples',
+    name: 'VGLExmaples',
     components: { Nav },
     data: function() {
         return { links: LINKS }

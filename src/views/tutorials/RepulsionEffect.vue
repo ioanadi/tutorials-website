@@ -44,6 +44,7 @@
         </vgl-renderer>
         
         <div class="control-panel">
+            <a href='https://github.com/ioanadi/tutorials-website/blob/master/src/views/tutorials/RepulsionEffect.vue'> Source code  </a>
             <h3>Control Panel</h3>
             <div class="panel__item">
                 <input type="checkbox" v-model="showAxes">&nbsp;
@@ -130,12 +131,11 @@ export default Vue.extend({
         }
     },
     mounted: function() {
-        this.cells = this.createCells()
-        this.$refs.material.inst.emissive = { r: 0, b: 0, g: 0 }
-        this.$refs.material.inst.roughness = .18
-        this.$refs.material.inst.metalness = .58
-        this.$refs.renderer.inst.shadowMap.type = THREE.PCFSoftShadowMap
-
+        this.cells = this.createCells();
+        (this as any).$refs.material.inst.emissive = { r: 0, b: 0, g: 0 };
+        (this as any).$refs.material.inst.roughness = .18;
+        (this as any).$refs.material.inst.metalness = .58;
+        (this as any).$refs.renderer.inst.shadowMap.type = THREE.PCFSoftShadowMap
         window.addEventListener('mousemove', this.onMouseMove, { passive: true })
         requestAnimationFrame(this.animate)
     },
@@ -143,7 +143,7 @@ export default Vue.extend({
         animate(time: any) {
             time *= 0.001;  // convert time to seconds
             this.rotation =  vector3(time, time, time)
-            this.draw(time)
+            this.draw()
             requestAnimationFrame(this.animate)
         },
         createCells() {
@@ -170,13 +170,13 @@ export default Vue.extend({
 
             return cells
         },
-        onMouseMove({ clientX, clientY}) {
+        onMouseMove({ clientX, clientY }: {clientX: number, clientY: number}) {
             this.mouse3D.x = (clientX / this.width) * 2 - 1
             this.mouse3D.y = -(clientY / this.height) * 2 + 1
         },
-        draw(time: number) {
-            this.raycaster.setFromCamera(this.mouse3D, this.$refs.camera.inst)
-            const intersects = this.raycaster.intersectObjects([this.$refs.floorMesh.inst])
+        draw() {
+            this.raycaster.setFromCamera(this.mouse3D, (this as any).$refs.camera.inst)
+            const intersects = this.raycaster.intersectObjects([(this as any).$refs.floorMesh.inst])
 
             if (intersects.length) {
                 const { x, z } = intersects[0].point
@@ -187,7 +187,6 @@ export default Vue.extend({
                         const distanceCursorMesh = distance(x, z, mesh.position.x,  mesh.position.z)
 
                         if (this.isPointInFocusedArea(distanceCursorMesh)) {
-                            const progression = distanceCursorMesh/this.focusRadius
                             const progressionInversed = 1 - distanceCursorMesh/this.focusRadius
                             const focusedScale = 4.5*progressionInversed < 1 ? 1 : 4.5*progressionInversed
 
@@ -231,6 +230,7 @@ export default Vue.extend({
     background: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), url('../../../public/annie-spratt.jpg');
     background-attachment: fixed;
     background-position: bottom;
+    position: relative;
     h1 {
         position: absolute;
         top: 12rem;
@@ -238,6 +238,9 @@ export default Vue.extend({
         text-align: center;
         margin: 0 auto;
         font-size: 4rem;
+        color: rgb(241, 56, 0);
+        opacity: .7;
     }
+    a { text-align: right; }
 }
 </style>

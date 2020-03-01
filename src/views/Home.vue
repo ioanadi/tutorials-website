@@ -4,8 +4,8 @@
         <div class="home__nav">
             <div v-for="(dot,i) in dots" :key="i" :class="['huey-colors nav__dot ' + dot.class]">
                 <div class="nav__subdot" v-for="(subD,subI) in dot.subdots" :key="subI" @click="subD.action">
-                    <!-- <font-awesome-icon :icon="['fa', subD.icon]"/> -->
-                    <p>{{subD.title}}</p>
+                    <font-awesome-icon v-if="i==2" :icon="['fab', subD.icon]" size="lg"/>
+                    <p v-else>{{subD.title}}</p>
                 </div>
                 <p class="nav__dot-title">{{dot.content}}</p>
             </div>
@@ -14,7 +14,7 @@
         <section class="home__section1">
             <div class="home__s1-title custom-text-style">
                 <h1>Ioana Dinca <br> web dev  </h1> 
-                <h3> &#x25BC; Welcome to my frontend world &#x25BC; </h3>
+                <h3>  <span>&#x25BC;</span>  Welcome to my frontend world <span>&#x25BC;</span> </h3>
             </div>
         </section>
 
@@ -28,8 +28,7 @@
                     <br>The virtualized DOM, reactivity, component life cycle and easy templating 
                     paves the way to creativity and problem solving thinking. Moreover - the variety of libraries and components on the web makes for a fun dev experience. 
                     <br>
-                    Meet some interesting UI examples rewritten with Vue js - even 3D through VGL - and explore fun and impactful libraries such as ScrollMagic in vuejs.
-                    
+                    Meet some interesting UI examples rewritten with Vue js - even 3D through VGL - and explore fun and impactful libraries such as ScrollMagic.
                 </p>
             </div>
         </section>
@@ -41,15 +40,19 @@
                     <div class="home__s3-card-content">
                         <h2>Simple UI</h2>
                         <p>
-                            An impactful website consists of basic structurs with at least a hint of complexity. Vuejs simplifies writing powerful code for visual complexity. Check out <a href="/#/simple-ui">some examples</a>  and compare the source code. 
+                            A mere hint of complexity could lie at the heart of a website. Vuejs simplifies writing powerful code for complex structures. 
+                            Check out some examples: <a href="/tutorials/fan"> swatch book</a> or <a href="/tutorials/explosion"> image exploding effect</a>.
                         </p>                        
                     </div>
                 </div>
                 <div class='home__s3-card'>
                     <div class="home__s3-card-content">
-                        <h2>3D animations with VGL</h2>
+                        <h2>3D with VGL</h2>
                         <p>
-                            3d effects on simple shapes or on groups of forms have significant potential to enhance the messge of a website. To achieve this, <a href="https://threejs.org/">three.js</a> is a js popular library which uses WebGL. Moreover, for a fast and more structured experience, threejs is integrated in a vue based library - <a href="https://vue-gl.github.io/">VueGl</a>. <a href="/#/vue-gl">Explore some examples!</a>
+                            3d effects engage the user and enhances the messge of a website. 
+                            <a href="https://threejs.org/">Three.js</a> is a js popular library which uses WebGL and it's been integrated
+                             in a vue based library - <a href="https://vue-gl.github.io/">VueGl</a>.
+                            To discover it better,<a href="/tutorials/repulsion"> check out a repulsion 3D effect.</a>
                         </p>
                     </div>
                 </div>
@@ -90,7 +93,10 @@ import router from '../router'
 const scrollToS2 = function() { document.getElementsByClassName('home__section2')[0].scrollIntoView() }
 const scrollToS3 = function() { document.getElementsByClassName('home__section3')[0].scrollIntoView() }
 const scrollToS4 = function() { document.getElementsByClassName('home__section4')[0].scrollIntoView() }
-
+function openInNewTab(url: string) {
+    var win = window.open(url, '_blank')
+    if(win) win.focus()
+}
 const NAV_DOTS = [
     { 
         content: 'Contents', class: 'first', 
@@ -101,19 +107,19 @@ const NAV_DOTS = [
         ]
     },
     {
-        content: '2D', class: 'second', 
+        content: 'Tutorials', class: 'second', 
         subdots: [
-            { icon: 'circle', title: 'Fan',          action: function() { router.push('/simples/fan') } },
-            { icon: 'shapes', title: 'Extended Fan', action: function() { router.push('/simples/fan-extended') } },
-            { icon: 'cube',   title: 'Explosion',    action: function() { router.push('/simples/explosion') } }
+            { icon: 'circle', title: 'Fan',          action: function() { router.push('/tutorials/fan') } },
+            { icon: 'shapes', title: 'Repulsion',    action: function() { router.push('/tutorials/repulsion') } },
+            { icon: 'cube',   title: 'Explosion',    action: function() { router.push('/tutorials/explosion') } }
         ]
     },
     { 
-        content: '3D', class: 'thid', 
+        content: 'Connect', class: 'thid', 
         subdots: [
-            { icon: 'linkedin', title: 'Repulsion', action: function() { router.push('/vue-gl/repulsion') } },
-            { icon: 'facebook', title: 'Cube',      action: function() { router.push('/vue-gl/cube') } },
-            { icon: 'github',   title: 'Lights',    action: function() { router.push('/vue-gl/lights') } }
+            { icon: 'github',   title: 'Github',    action: function() { openInNewTab("https://github.com/ioanadi") }},
+            { icon: 'linkedin', title: 'Linkedin',  action: function() { openInNewTab("https://github.com/ioanadi") }},
+            { icon: 'facebook', title: 'Facebook',  action: function() { openInNewTab("https://github.com/ioanadi") }},
         ]
     }
 ] as Array<any>
@@ -137,7 +143,6 @@ export default Vue.extend({
                 css: { 'transform': 'translateX(-1rem) translateY(-3rem)' }
             })
         this.$scrollmagic.addScene(this.scenes[0])
-
         this.scenes[1] = this.$scrollmagic.scene({
             triggerElement: 'section.home__section2',
             triggerHook: 'onLeave',
@@ -147,14 +152,12 @@ export default Vue.extend({
                 css: { 'transform': 'translateX(1rem) translateY(2rem)' }
             })
         this.$scrollmagic.addScene(this.scenes[1])
-
         this.scenes[2] = this.$scrollmagic.scene({
             triggerElement: 'section.home__section2',
             triggerHook: 'onCenter',
         })
             .setClassToggle(".home__s2-title", "animate-text") 
         this.$scrollmagic.addScene(this.scenes[2])
-        
         this.scenes[3] = this.$scrollmagic.scene({
             triggerElement: 'section.home__section3',
             triggerHook: 'onLeave',
@@ -169,7 +172,6 @@ export default Vue.extend({
                 }
             })
         this.$scrollmagic.addScene(this.scenes[3])
-        
         this.onResize(null)
         window.addEventListener('resize', this.onResize)
     },
@@ -191,7 +193,7 @@ export default Vue.extend({
                 this.scenes[2].enabled(true)
                 this.scenes[3].enabled(true)
             }
-        }
+        },
     }
 })
 </script>
@@ -200,7 +202,7 @@ export default Vue.extend({
 
 $max-content-width: 900px;
 
-$galery-img-width: 375px;
+$galery-img-width: 350px;
 
 $dot-width: 75px;
 $dot-between-distance: 125px;
@@ -227,8 +229,7 @@ $dot-between-distance-mobile: 120px;
         h1 { 
             color: white; 
             font-size: 50px; 
-            opacity: .8; 
-            letter-spacing: .45rem;
+            letter-spacing: .5rem;
         }
     }
 }
@@ -242,12 +243,14 @@ $dot-between-distance-mobile: 120px;
             margin: 0;
             line-height: 1.2;
             font-size: 2.5rem;
+            letter-spacing: 1.25rem;
             text-transform: uppercase;
             opacity: 1; 
             @media (min-width: 769px) {
-                font-size: 5rem;
+                font-size: 4.5rem;
             }
         }
+        span { @media (max-width: 769px) { display: none;} }
     }
 }
 .home__section2 {
@@ -299,14 +302,15 @@ $dot-between-distance-mobile: 120px;
             font-size: 14px;
             line-height: 2rem;
             text-align: center;
-            @media (min-width: 769px) { margin: 2rem 4rem; font-size: 17px; }
+            @media (min-width: 769px) { margin: 1rem 2rem; font-size: 17px; }
         }
     }
 }
 .home__section3 {
     padding: 3rem 1rem;
     flex-direction: column;
-    @media (min-width: 769px) { padding: 3rem 2*$dot-width; }
+    @media (min-width: 769px) { padding: 3rem 1.5*$dot-width; }
+    h1 { margin-left: .5*$dot-width; }
     .home__s3-gallery {
         width: 100%;
         display: flex;
@@ -323,11 +327,11 @@ $dot-between-distance-mobile: 120px;
             margin-top: 1rem;
             background: rgba(241, 241, 241, 0.61);
             background-size: cover;
-            @media (min-width: 769px) { 
+            @media (min-width: 920px) { 
                 width: $galery-img-width;
                 height: $galery-img-width*1.15;
             }
-            &:nth-child(2) { @media (min-width: 769px) { margin-top: -5rem;  } }
+            &:nth-child(2) { @media (min-width: 920px) { margin-top: -5rem;  } }
 
             .home__s3-card-content {
                 height: 100%;
@@ -335,7 +339,7 @@ $dot-between-distance-mobile: 120px;
                 margin: 0;
                 padding: 1rem;
                 background: white;
-                @media (min-width: 769px) { margin: 2rem; }
+                @media (min-width: 769px) { margin: 1.5rem; }
                 h2, p { text-align: center;}
                 p {
                     font-size: 14px;
@@ -432,9 +436,8 @@ $dot-between-distance-mobile: 120px;
             transform: translate3d(0, 210px, 0) rotate(360deg);
             @media (min-width: 769px) { transform: translate3d(40px, 50px, 0); }
         }
-        p { opacity: 1 !important; }
+        p { opacity: 1 !important; color: white;}
     }
-    &.rectangle { border-radius: 0; }
     p {
         width: $dot-width/1.75;
         margin: 0.2rem 0 0 0;
@@ -464,13 +467,16 @@ $dot-between-distance-mobile: 120px;
             width: $dot-width/1.2;
             height: $dot-width/1.2;
         }
-        svg, p { color: white; }
+        svg  { color: white; }
         p {
             width: $dot-width/1.5;
             letter-spacing: 0.02rem;
             font-size: 0.55rem;
             text-align: center;
             word-wrap: break-word;
+            color: white;
+            -webkit-text-fill-color: rgb(255, 255, 255); 
+            -webkit-opacity: 1; 
             @media (min-width: 769px) {
                 font-size: 0.7rem;
             }

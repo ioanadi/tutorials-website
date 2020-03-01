@@ -1,19 +1,24 @@
 <template>
     <div class="fan">
-        <div class="fan__items" :style="fanContainerStyle">
-            <div
-                v-for="(item,i) in links" :key="i"
-                class="fan__item"  
-                :class="{ 'selected-item': activeItem == i }"
+        <div class="fan__container" :style="fanContainerStyle">
+            <div class="fan__item"  v-for="(item,i) in links" :key="i"
                 :style="active ? itemStyleActive(i) : itemStyleStatic(i)"
                 @click="cardAction(i)"
             >
-                <p>{{item.name}}</p>
+                <div :class="{ 'selected-item': activeItem == i }"
+                    :style="{'background-color': item.color}"
+                ><p>{{item.name}}</p></div>
             </div>
         </div>
 
         <p class="fan__link">
+            <a href='/tutorials/fan-extended'> Check out the version with extended cards </a>
+        </p>
+        <p class="fan__link">
             Inspired by: <a href="https://tympanus.net/Tutorials/SwatchBook/index3.html">Swatch Book</a>
+        </p>
+        <p class="fan__link fan__link-upper">
+            <a href='https://github.com/ioanadi/tutorials-website/blob/master/src/views/tutorials/Fan.vue'> Source code </a>
         </p>
     </div>
 </template>
@@ -38,7 +43,7 @@ const MAX_ROTATION_ACTIVE = 180
 const MAX_ROTATION_STATIC = 20
 
 export default Vue.extend({
-    name: 'FanExtended',
+    name: 'Fan',
     data: function() {
         return {
             maxRotationActive: MAX_ROTATION_ACTIVE,
@@ -56,7 +61,9 @@ export default Vue.extend({
                     ' translate3d(' + -170 + 'px, ' +  40 + 'px, 0)'
             }
         },
+
     },
+    mounted: function() {},
     methods: {
         itemStyleStatic(i: number) {
             let percentage = i/this.links.length          // item position relative to total items, as percentage
@@ -64,7 +71,6 @@ export default Vue.extend({
 
             return {
                 'transform': 'rotate(' + rotation +'deg)',
-                'background-color': this.links[i].color
             }
         },
         itemStyleActive(i: number) {
@@ -73,7 +79,6 @@ export default Vue.extend({
 
             return {
                 'transform': 'rotate(' + rotation +'deg)',
-                'background-color': this.links[i].color
             }
         },
         cardAction(i: number) {
@@ -98,50 +103,53 @@ $card-height: 120px;
     justify-content: center;
     align-items: center;
     height: 100vh; 
-    .fan__items {
+    .fan__container {
         position: relative;
         width: $card-width;
         height: $card-height;
-        margin-top: 10rem;
-        transition: all .5s cubic-bezier(0.33, 0.41, 0.22, 0.83);
+        margin-top: 15rem;
+        transition: all .85s cubic-bezier(0.29, 0.13, 0, 1.87);
         transform: rotate(90deg);
         .fan__item {
             position: absolute;
             top: 0;
             width: $card-width;
             height: $card-height;
+            transition: all .85s cubic-bezier(0.29, 0.13, 0, 1.87);
             transform-origin: 90% 40%;
-            border-radius: 3px;
-            box-shadow: -1px -1px 3px rgba(0,0,0,0.1), 11px 11px 18px rgba(0,0,0,0.4), inset 0 3px 0 rgba(255, 255, 255, 0.2);
-            transition: all .5s cubic-bezier(0.33, 0.41, 0.22, 0.83);
-            &.selected-item {
-                transform: translate3d(-200px, -50px, 0) rotate(75deg) !important;
-                z-index: 10;
-                animation: expand .75s forwards ;
-
-                @keyframes expand {
-                    0% { height: $card-height; }
-                    100% { height: 500px; }
-                }
-            }
-            p {
+            div {
                 position: absolute;
-                bottom: .75rem;
-                left: $card-width/3;
-                padding: .25rem;
-                border: 2px solid pink;
-                transform: rotate(-90deg);
-                font-size: 1.5rem;
-                letter-spacing: .5rem;
-                color: pink;
-                opacity: 0.6;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                border-radius: 3px;
+                box-shadow: -1px -1px 3px rgba(0,0,0,0.1), 11px 11px 18px rgba(0,0,0,0.4), inset 0 3px 0 rgba(255, 255, 255, 0.2);
+                transition: all .5s cubic-bezier(0.33, 0.41, 0.22, 0.83);
+                &.selected-item {
+                    transform: translate3d(-140px, 10px, 0);
+                }
+                p {
+                    position: absolute;
+                    bottom: .75rem;
+                    left: $card-width/3;
+                    padding: .25rem;
+                    border: 2px solid pink;
+                    transform: rotate(-90deg);
+                    font-size: 1.5rem;
+                    letter-spacing: .5rem;
+                    color: pink;
+                    opacity: 0.6;
+                }
             }
         }
     }
     .fan__link {
         position: absolute;
-        bottom: 5rem;
+        bottom: 0rem;
         right: 5rem;
+        &:nth-child(2) { bottom: 2.5rem; }
+        &.fan__link-upper { bottom: unset; top: 0; }
     }
 }
 </style>

@@ -19,7 +19,7 @@ export default Vue.extend({
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: #3c3939;
+    color: #989393;
 }
 .fixed-full-width {
     position: fixed;

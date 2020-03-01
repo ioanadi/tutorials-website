@@ -46,7 +46,7 @@ export default Vue.extend({
         requestAnimationFrame(this.animate)
     },
     methods: {
-        animate(time) {
+        animate(time: number) {
             time *= 0.001;  // convert time to seconds
             this.rotation =  '0 ' + time
             // this.cameraPosition = '5  ' + time + '.7'
