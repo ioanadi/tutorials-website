@@ -64,8 +64,6 @@ $explosion-height: 390px;
 // $explosion-width-mobile: 135px;
 
 .explosion-page { 
-    background-image: linear-gradient(-45deg, #07101b, #bbc5cc);
-    background-attachment: fixed;
     position: relative;
     .explosion-container {
         width: 100%;
@@ -76,7 +74,7 @@ $explosion-height: 390px;
         justify-content: center;
         align-items: center;
         h1 {
-            color: white;
+            color: rgb(161, 161, 161);
             letter-spacing: 1.2rem;
             opacity: .7;
         }

@@ -4,12 +4,12 @@
         <vgl-renderer antialias alpha style="height: 80vh;">
             <vgl-scene>
                 <vgl-box-geometry name="box" width=1 height=1 depth=1></vgl-box-geometry>
-                <vgl-texture src="bence-dots.jpg"           name="texture1"></vgl-texture>
+                <!-- <vgl-texture src="bence-dots.jpg"           name="texture1"></vgl-texture>
                 <vgl-texture src="barballis-fence.jpg"      name="texture2"></vgl-texture>
                 <vgl-texture src="harper-window.jpg"        name="texture3"></vgl-texture>
                 <vgl-texture src="jasmin-sky.jpg"           name="texture4"></vgl-texture>
                 <vgl-texture src="jon-tyson-flowers.jpg"    name="texture5"></vgl-texture>
-                <vgl-texture src="webb-rocks.jpg"           name="texture6"></vgl-texture>
+                <vgl-texture src="webb-rocks.jpg"           name="texture6"></vgl-texture> -->
                 <vgl-mesh-basic-material name="basic1" map='texture1'></vgl-mesh-basic-material>
                 <vgl-mesh-basic-material name="basic2" map='texture2'></vgl-mesh-basic-material>
                 <vgl-mesh-basic-material name="basic3" map='texture3'></vgl-mesh-basic-material>
