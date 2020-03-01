@@ -16,7 +16,7 @@
             <a href='/tutorials/fan'> Check out the version with picker cards </a>
         </p>
         <p class="fan__link">
-            Inspired by: <a href="https://tympanus.net/Tutorials/SwatchBook/index3.html">Swatch Book</a>
+            Design by: <a href="https://tympanus.net/Tutorials/SwatchBook/index3.html">Swatch Book</a>
         </p>
         <p class="fan__link fan__link-upper">
             <a href='https://github.com/ioanadi/tutorials-website/blob/master/src/views/tutorials/FanExtended.vue'> Source code </a>

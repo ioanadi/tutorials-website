@@ -68,7 +68,7 @@
                 <label>G &nbsp;<input type="range" max="255" v-model="phG"></label>&nbsp;
                 <label>B &nbsp;<input type="range" max="255" v-model="phB"></label>
             </div>
-            <p>Inspired by <a href="https://tympanus.net/codrops/2018/12/06/interactive-repulsion-effect-with-three-js/">Interactive Repulsion Effect with Three.js</a> </p>
+            <p>Design by <a href="https://tympanus.net/codrops/2018/12/06/interactive-repulsion-effect-with-three-js/">Interactive Repulsion Effect with Three.js</a> </p>
         </div>
 
         <span class="credits">Photo by Annie Spratt on Unsplash</span>

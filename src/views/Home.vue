@@ -1,13 +1,14 @@
 <template>
     <div class="home">
 
-        <div class="home__nav">
+        <div class="nav">
             <div v-for="(dot,i) in dots" :key="i" :class="['huey-colors nav__dot ' + dot.class]">
                 <div class="nav__subdot" v-for="(subD,subI) in dot.subdots" :key="subI" @click="subD.action">
                     <font-awesome-icon v-if="i==2" :icon="['fab', subD.icon]" size="lg"/>
                     <p v-else>{{subD.title}}</p>
                 </div>
-                <p class="nav__dot-title">{{dot.content}}</p>
+                <p class="nav__dot-title"> {{dot.content}} </p>
+                <font-awesome-icon class="nav__dot-title-svg" :icon="['fa', dot.icon]" size="lg"/>
             </div>
         </div>
 
@@ -99,7 +100,7 @@ function openInNewTab(url: string) {
 }
 const NAV_DOTS = [
     { 
-        content: 'Contents', class: 'first', 
+        content: 'Contents', class: 'first', icon: 'bars',
         subdots: [
             { icon: 'circle', title: 'Intro',   action: scrollToS2 },
             { icon: 'shapes', title: 'Explore', action: scrollToS3 },
@@ -107,7 +108,7 @@ const NAV_DOTS = [
         ]
     },
     {
-        content: 'Tutorials', class: 'second', 
+        content: 'Tutorials', class: 'second', icon: 'book-open',
         subdots: [
             { icon: 'circle', title: 'Fan',          action: function() { router.push('/tutorials/fan') } },
             { icon: 'shapes', title: 'Repulsion',    action: function() { router.push('/tutorials/repulsion') } },
@@ -115,7 +116,7 @@ const NAV_DOTS = [
         ]
     },
     { 
-        content: 'Connect', class: 'thid', 
+        content: 'Connect', class: 'thid', icon: 'envelope',
         subdots: [
             { icon: 'github',   title: 'Github',    action: function() { openInNewTab("https://github.com/ioanadi") }},
             { icon: 'linkedin', title: 'Linkedin',  action: function() { openInNewTab("https://github.com/ioanadi") }},
@@ -143,25 +144,28 @@ export default Vue.extend({
                 css: { 'transform': 'translateX(-1rem) translateY(-3rem)' }
             })
         this.$scrollmagic.addScene(this.scenes[0])
+
         this.scenes[1] = this.$scrollmagic.scene({
             triggerElement: 'section.home__section2',
             triggerHook: 'onLeave',
-            duration: '150%'
+            duration: '100%'
         })
             .setTween('.home__s2-infobox', { 
                 css: { 'transform': 'translateX(1rem) translateY(2rem)' }
             })
         this.$scrollmagic.addScene(this.scenes[1])
+
         this.scenes[2] = this.$scrollmagic.scene({
             triggerElement: 'section.home__section2',
             triggerHook: 'onCenter',
         })
             .setClassToggle(".home__s2-title", "animate-text") 
         this.$scrollmagic.addScene(this.scenes[2])
+
         this.scenes[3] = this.$scrollmagic.scene({
             triggerElement: 'section.home__section3',
             triggerHook: 'onLeave',
-            duration: '200%'
+            duration: '100%'
         })
             .setPin("section.home__section3")
             .setTween('.home__s3-title', { 
@@ -172,6 +176,7 @@ export default Vue.extend({
                 }
             })
         this.$scrollmagic.addScene(this.scenes[3])
+
         this.onResize(null)
         window.addEventListener('resize', this.onResize)
     },
@@ -199,16 +204,9 @@ export default Vue.extend({
 </script>
 <style lang="scss">
 
-
 $max-content-width: 900px;
-
-$galery-img-width: 350px;
-
+$galery-img-width: 400px;
 $dot-width: 75px;
-$dot-between-distance: 125px;
-$first-dot-top-margin: 75px;
-$dot-between-distance-mobile: 120px;
-
 
 .home {
     background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
@@ -237,10 +235,10 @@ $dot-between-distance-mobile: 120px;
     .home__s1-title {
         width: 100%;
         margin-top: 20vh;
-        text-align: center;
         color: white;
         h1 {
             margin: 0;
+            text-align:  center;
             line-height: 1.2;
             font-size: 2.5rem;
             letter-spacing: 1.25rem;
@@ -250,6 +248,7 @@ $dot-between-distance-mobile: 120px;
                 font-size: 4.5rem;
             }
         }
+        h3 { text-align:  center; }
         span { @media (max-width: 769px) { display: none;} }
     }
 }
@@ -291,14 +290,13 @@ $dot-between-distance-mobile: 120px;
         margin: 0 1rem;
         display: flex;
         justify-content: center;
-        background: rgba(241, 241, 241, 0.61);
         @media (min-width: 769px) { margin: 0 2.5*$dot-width; }
         p {
             margin: 0;
             padding: 2rem;
             max-width: $max-content-width;
             box-shadow: 10px 10px 22px 0px rgba(0, 0, 0, 0.5);
-            background: rgb(241, 241, 241);
+            background: #ffffffde;
             font-size: 14px;
             line-height: 2rem;
             text-align: center;
@@ -313,32 +311,32 @@ $dot-between-distance-mobile: 120px;
     h1 { margin-left: .5*$dot-width; }
     .home__s3-gallery {
         width: 100%;
+        max-width: 1024px;
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        opacity: 0;
+        align-items: center;
         @media (min-width: 769px) { 
             flex-direction: row; 
-            flex-wrap: wrap;
         }
-        &.gallery-appear { animation: appear .75s forwards 0.3s; }
         .home__s3-card {
             width: 100%;
+            max-width: $galery-img-width/1.4;
             margin-top: 1rem;
-            background: rgba(241, 241, 241, 0.61);
-            background-size: cover;
-            @media (min-width: 920px) { 
+            @media (min-width: 900px) { 
                 width: $galery-img-width;
-                height: $galery-img-width*1.15;
+                max-width: unset;
+                height: $galery-img-width;
             }
-            &:nth-child(2) { @media (min-width: 920px) { margin-top: -5rem;  } }
+            &:nth-child(2) { @media (min-width: 769px) { margin-top: -5rem;  } }
 
             .home__s3-card-content {
                 height: 100%;
                 box-shadow: 10px 10px 22px 0px rgba(0, 0, 0, 0.5);
                 margin: 0;
-                padding: 1rem;
-                background: white;
+                padding: 1.5rem;
+                background: #ffffffde;
                 @media (min-width: 769px) { margin: 1.5rem; }
                 h2, p { text-align: center;}
                 p {
@@ -384,108 +382,6 @@ $dot-between-distance-mobile: 120px;
         }
     }
 }
-
-.nav__dot {
-    position: fixed;
-    top: 1rem;
-    width: $dot-width/1.5;
-    height: $dot-width/1.5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 70px;
-    cursor: pointer;
-    z-index: 5;
-    opacity: .7;
-    @media (min-width: 769px) {
-        top: $first-dot-top-margin; 
-        width: $dot-width;
-        height: $dot-width;
-    }
-    &.first { 
-        right: $first-dot-top-margin/2;
-        @media (min-width: 769px) { top: $first-dot-top-margin; left: 30px; }
-    }
-    &.second { 
-        right: $first-dot-top-margin/2 + $dot-between-distance/2;
-        animation-delay: 1.5s; 
-        @media (min-width: 769px) { top: $first-dot-top-margin + $dot-between-distance; left: 30px; }
-    }
-    &.thid { 
-        right: $first-dot-top-margin/2 + $dot-between-distance;
-        animation-delay: 3s;
-        @media (min-width: 769px) { top: $first-dot-top-margin + 2*$dot-between-distance; left: 30px; }
-    }
-
-    &:hover {
-        box-shadow: 10px 10px 22px 0px rgba(0,0,0,0.5);
-        opacity: 1;
-        transition: all .2 linear;
-        .nav__subdot {
-            visibility: visible;
-            transform: translate3d(0, 50px, 0) rotate(360deg);
-            @media (min-width: 769px) { transform: translate3d(40px, -50px, 0) ; }
-        }
-        .nav__subdot:nth-child(2) {
-            animation-delay: 1s;
-            transform: translate3d(0, 130px, 0) rotate(360deg);
-            @media (min-width: 769px) { transform: translate3d(80px, 0px, 0) ; }
-        }
-        .nav__subdot:nth-child(3) {
-            animation-delay: 2s;
-            transform: translate3d(0, 210px, 0) rotate(360deg);
-            @media (min-width: 769px) { transform: translate3d(40px, 50px, 0); }
-        }
-        p { opacity: 1 !important; color: white;}
-    }
-    p {
-        width: $dot-width/1.75;
-        margin: 0.2rem 0 0 0;
-        font-weight: bold;
-        color: white;
-        text-align: center;
-        opacity: .7;
-        font-size: .7rem;
-        word-wrap: break-word;
-        opacity: 0;
-        @media (min-width: 769px) { width: $dot-width/1.1; }
-    }
-    .nav__subdot {
-        all: inherit;
-        position: absolute;
-        top: 0; left: 0;
-        width: $dot-width/1.5;
-        height: $dot-width/1.5;
-        visibility: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        transition: all .2s linear;
-        @media (min-width: 769px) {
-            left: 0;
-            width: $dot-width/1.2;
-            height: $dot-width/1.2;
-        }
-        svg  { color: white; }
-        p {
-            width: $dot-width/1.25;
-            letter-spacing: 0.02rem;
-            font-size: 0.55rem;
-            text-align: center;
-            word-wrap: break-word;
-            color: white;
-            -webkit-text-fill-color: rgb(255, 255, 255); 
-            -webkit-opacity: 1; 
-            @media (min-width: 769px) {
-                font-size: 0.7rem;
-            }
-            
-        }
-    }
-    
-}
-
 
 @keyframes appear {
     to { opacity: 1; }

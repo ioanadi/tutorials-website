@@ -12,10 +12,10 @@
         </div>
 
         <p class="fan__link">
-            <a href='/tutorials/fan-extended'> Check out the version with extended cards </a>
+            <router-link :to="'/tutorials/fan-extended'">Check out the version with extended cards</router-link>
         </p>
         <p class="fan__link">
-            Inspired by: <a href="https://tympanus.net/Tutorials/SwatchBook/index3.html">Swatch Book</a>
+            Design by: <a href="https://tympanus.net/Tutorials/SwatchBook/index3.html">Swatch Book</a>
         </p>
         <p class="fan__link fan__link-upper">
             <a href='https://github.com/ioanadi/tutorials-website/blob/master/src/views/tutorials/Fan.vue'> Source code </a>
