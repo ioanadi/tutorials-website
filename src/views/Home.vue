@@ -469,7 +469,7 @@ $dot-between-distance-mobile: 120px;
         }
         svg  { color: white; }
         p {
-            width: $dot-width/1.5;
+            width: $dot-width/1.25;
             letter-spacing: 0.02rem;
             font-size: 0.55rem;
             text-align: center;
