@@ -2,7 +2,7 @@
     <div class="home">
 
         <div class="nav">
-            <div v-for="(dot,i) in dots" :key="i" :class="['huey-colors nav__dot ' + dot.class]">
+            <div v-for="(dot,i) in dots" :key="i" :class="['huey-colors nav__dot ' + dot.class]" @click="toggleClass">
                 <div class="nav__subdot" v-for="(subD,subI) in dot.subdots" :key="subI" @click="subD.action">
                     <font-awesome-icon v-if="i==2" :icon="['fab', subD.icon]" size="lg"/>
                     <p v-else>{{subD.title}}</p>
@@ -14,7 +14,8 @@
 
         <section class="home__section1">
             <div class="home__s1-title custom-text-style">
-                <h1>Ioana Dinca <br> web dev  </h1> 
+                <h1>Ioana Dinca </h1> 
+                <h1> web dev  </h1> 
                 <h3>  <span>&#x25BC;</span>  Welcome to my frontend world <span>&#x25BC;</span> </h3>
             </div>
         </section>
@@ -38,24 +39,24 @@
             <h1 class="home__s3-title">explore</h1>
             <div class="home__s3-gallery gallery-appear">
                 <div class='home__s3-card'>
-                    <div class="home__s3-card-content">
+                    <!-- <div class="home__s3-card-content"> -->
                         <h2>Simple UI</h2>
                         <p>
                             A mere hint of complexity could lie at the heart of a website. Vuejs simplifies writing powerful code for complex structures. 
-                            Check out some examples: <a href="/tutorials/fan"> swatch book</a> or <a href="/tutorials/explosion"> image exploding effect</a>.
+                            Check out some examples: <router-link :to='"/tutorials/fan"'> swatch book</router-link>.or <router-link :to='"/tutorials/explosion"'>image exploding effect</router-link>.
                         </p>                        
-                    </div>
+                    <!-- </div> -->
                 </div>
                 <div class='home__s3-card'>
-                    <div class="home__s3-card-content">
+                    <!-- <div class="home__s3-card-content"> -->
                         <h2>3D with VGL</h2>
                         <p>
                             3d effects engage the user and enhances the messge of a website. 
                             <a href="https://threejs.org/">Three.js</a> is a js popular library which uses WebGL and it's been integrated
-                             in a vue based library - <a href="https://vue-gl.github.io/">VueGl</a>.
-                            To discover it better,<a href="/tutorials/repulsion"> check out a repulsion 3D effect.</a>
+                             in a vue based library - <a href="https://vue-gl.github.io/">Vue-Gl</a>.
+                            To discover it better,<router-link :to="'/tutorials/repulsion'">check out a repulsion 3D effect </router-link>.
                         </p>
-                    </div>
+                    <!-- </div> -->
                 </div>
             </div>
         </section>
@@ -73,7 +74,7 @@
                 </div>
                 <div class="home__s4-contact-section">
                     <font-awesome-icon :icon="['fab', 'linkedin']" size="lg"/>
-                    <a href="https://www.linkedin.com/in/maria-ioana-dinca-7a7352148">www.linkedin.com/in/maria-ioana-dinca-7a7352148'</a>
+                    <a href="https://www.linkedin.com/in/maria-ioana-dinca-7a7352148">www.linkedin.com/in/maria-ioana-dinca-7a7352148</a>
                 </div>
                 <div class="home__s4-contact-section">
                     <font-awesome-icon :icon="['fab', 'facebook']" size="lg"/>
@@ -199,13 +200,16 @@ export default Vue.extend({
                 this.scenes[3].enabled(true)
             }
         },
+        toggleClass(e: any) {
+            e.currentTarget.classList.toggle('nav__dot--clicked')
+        },
     }
 })
 </script>
 <style lang="scss">
 
-$max-content-width: 900px;
-$galery-img-width: 400px;
+$max-content-width: 1094px;
+$galery-img-width: 350px;
 $dot-width: 75px;
 
 .home {
@@ -238,7 +242,7 @@ $dot-width: 75px;
         color: white;
         h1 {
             margin: 0;
-            text-align:  center;
+            text-align: center;
             line-height: 1.2;
             font-size: 2.5rem;
             letter-spacing: 1.25rem;
@@ -297,10 +301,10 @@ $dot-width: 75px;
             max-width: $max-content-width;
             box-shadow: 10px 10px 22px 0px rgba(0, 0, 0, 0.5);
             background: #ffffffde;
-            font-size: 14px;
+            font-size: 15px;
             line-height: 2rem;
             text-align: center;
-            @media (min-width: 769px) { margin: 1rem 2rem; font-size: 17px; }
+            @media (min-width: 769px) { margin: 1rem 2rem; font-size: 18px; }
         }
     }
 }
@@ -323,7 +327,10 @@ $dot-width: 75px;
         .home__s3-card {
             width: 100%;
             max-width: $galery-img-width/1.4;
-            margin-top: 1rem;
+            margin: 1rem;
+            padding: 1.5rem;
+            box-shadow: 10px 10px 22px 0px rgba(0, 0, 0, 0.5);
+            background: #ffffffce;
             @media (min-width: 900px) { 
                 width: $galery-img-width;
                 max-width: unset;
@@ -331,19 +338,11 @@ $dot-width: 75px;
             }
             &:nth-child(2) { @media (min-width: 769px) { margin-top: -5rem;  } }
 
-            .home__s3-card-content {
-                height: 100%;
-                box-shadow: 10px 10px 22px 0px rgba(0, 0, 0, 0.5);
-                margin: 0;
-                padding: 1.5rem;
-                background: #ffffffde;
-                @media (min-width: 769px) { margin: 1.5rem; }
-                h2, p { text-align: center;}
-                p {
-                    font-size: 14px;
-                    line-height: 2rem;
-                    @media (min-width: 769px) { font-size: 17px; }
-                }
+            h2, p { text-align: center;}
+            p {
+                font-size: 15px;
+                line-height: 2rem;
+                @media (min-width: 769px) { font-size: 18px; }
             }
         }
     }

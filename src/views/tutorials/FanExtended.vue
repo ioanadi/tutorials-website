@@ -12,13 +12,15 @@
             </div>
         </div>
 
-        <p class="fan__link">
-            <a href='/tutorials/fan'> Check out the version with picker cards </a>
-        </p>
-        <p class="fan__link">
-            Design by: <a href="https://tympanus.net/Tutorials/SwatchBook/index3.html">Swatch Book</a>
-        </p>
-        <p class="fan__link fan__link-upper">
+        <div class="fan__links">
+            <p class="fan__link">
+                <router-link :to="'/tutorials/fan'">Check out the version with picker cards </router-link>
+            </p>
+            <p class="fan__link">
+                Design by: <a href="https://tympanus.net/Tutorials/SwatchBook/index3.html">Swatch Book</a>
+            </p>
+        </div>
+        <p class="fan__link-upper">
             <a href='https://github.com/ioanadi/tutorials-website/blob/master/src/views/tutorials/FanExtended.vue'> Source code </a>
         </p>
     </div>
@@ -56,11 +58,20 @@ export default Vue.extend({
     },
     computed: {
         fanContainerStyle(): object {
-            return {
+            let width = window.innerWidth
+
+            let transform = {
                 'transform': 
                     (this.active ? 'rotate(15deg)' : 'rotate(90deg)') +
-                    ' translate3d(' + -170 + 'px, ' +  40 + 'px, 0)'
+                    ' translate3d(-170px, 40px, 0)'
             }
+            let transformMobile = {
+                'transform': 
+                    this.active ? 'rotate(15deg) translate3d(-130px, -101px, 0px)' : 'rotate(90deg) translate3d(-174px, -3px, 0px)'
+                    
+            }
+            if(width > 769) return transform
+            else return transformMobile
         },
     },
     methods: {
@@ -96,60 +107,94 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+
+$card-width-mobile : 250px;
+$card-height-mobile: 50px;
+$card-expanded-height-mobile: 200px;
 $card-width : 480px;
 $card-height: 120px;
+$card-expanded-height: 500px;
 
 .fan {
+    padding-top: 10rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh; 
     .fan__items {
         position: relative;
-        width: $card-width;
-        height: $card-height;
+        width: $card-width-mobile;
+        height: $card-height-mobile;
         margin-top: 10rem;
         transition: all .5s cubic-bezier(0.33, 0.41, 0.22, 0.83);
         transform: rotate(90deg);
+        @media (min-width: 769px) { 
+            width: $card-width;
+            height: $card-height;
+        }
         .fan__item {
             position: absolute;
             top: 0;
-            width: $card-width;
-            height: $card-height;
+            width: $card-width-mobile;
+            height: $card-height-mobile;
             transform-origin: 90% 40%;
             border-radius: 3px;
             box-shadow: -1px -1px 3px rgba(0,0,0,0.1), 11px 11px 18px rgba(0,0,0,0.4), inset 0 3px 0 rgba(255, 255, 255, 0.2);
             transition: all .5s cubic-bezier(0.33, 0.41, 0.22, 0.83);
+            @media (min-width: 769px) { 
+                width: $card-width;
+                height: $card-height;
+            }
             &.selected-item {
-                transform: translate3d(-200px, -50px, 0) rotate(75deg) !important;
+                transform: translate3d(0px, -50px, 0) rotate(75deg) !important;
                 z-index: 10;
-                animation: expand .75s forwards ;
+                animation: expand-mobile .75s forwards;
+                @media (min-width: 769px) { 
+                    transform: translate3d(-200px, -50px, 0) rotate(75deg) !important;
+                    animation: expand .75s forwards;
+                }
 
                 @keyframes expand {
                     0% { height: $card-height; }
-                    100% { height: 500px; }
+                    100% { height: $card-expanded-height; }
+                }
+                @keyframes expand-mobile {
+                    0% { height: $card-height; }
+                    100% { height: $card-expanded-height-mobile; }
                 }
             }
             p {
                 position: absolute;
-                bottom: .75rem;
-                left: $card-width/3;
+                left: $card-width-mobile/3;
+                bottom: 6px;
                 padding: .25rem;
-                border: 2px solid pink;
+                border: 1px solid pink;
                 transform: rotate(-90deg);
-                font-size: 1.5rem;
-                letter-spacing: .5rem;
+                font-size: .5rem;
+                letter-spacing: .25rem;
                 color: pink;
                 opacity: 0.6;
+                @media (min-width: 769px) { 
+                    left: $card-width/3; 
+                    bottom: .75rem;
+                    font-size: 1.5rem; 
+                    letter-spacing: .5rem;
+                    left: $card-width/3;
+                    border: 2px solid pink;
+                }
             }
         }
     }
-    .fan__link {
+    .fan__links {
+        margin-top: 5rem;
+        display: flex;
+        flex-direction: column;
+    }
+    .fan__link-upper {
         position: absolute;
-        bottom: 0rem;
-        right: 5rem;
-        &:nth-child(2) { bottom: 2.5rem; }
-        &.fan__link-upper { bottom: unset; top: 0; }
+        top: 2.5rem; left: 2.5rem;
+        @media (min-width: 769px) { left: unset; right: 2.5rem;}
     }
 }
 </style>

@@ -44,7 +44,7 @@
         </vgl-renderer>
         
         <div class="control-panel">
-            <a href='https://github.com/ioanadi/tutorials-website/blob/master/src/views/tutorials/RepulsionEffect.vue'> Source code  </a>
+            <a class="repulsion__link-upper" href='https://github.com/ioanadi/tutorials-website/blob/master/src/views/tutorials/RepulsionEffect.vue'> Source code  </a>
             <h3>Control Panel</h3>
             <div class="panel__item">
                 <input type="checkbox" v-model="showAxes">&nbsp;
@@ -242,5 +242,10 @@ export default Vue.extend({
         opacity: .7;
     }
     a { text-align: right; }
+    .repulsion__link-upper {
+        position: absolute;
+        top: 2.5rem; left: 2.5rem;
+        @media (min-width: 769px) { left: unset; right: 2.5rem;}
+    }
 }
 </style>
