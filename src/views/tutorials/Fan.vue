@@ -1,11 +1,14 @@
 <template>
     <div class="fan">
         <div class="fan__container" :style="fanContainerStyle">
-            <div class="fan__item"  v-for="(item,i) in links" :key="i"
+            <div
+                class="fan__item"  
+                v-for="(item,i) in links" :key="i"
                 :style="active ? itemStyleActive(i) : itemStyleStatic(i)"
                 @click="cardAction(i)"
             >
-                <div :class="{ 'selected-item': activeItem == i }"
+                <div 
+                    :class="{ 'selected-item': activeItem == i }"
                     :style="{'background-color': item.color}"
                 ><p>{{item.name}}</p></div>
             </div>
@@ -83,7 +86,7 @@ export default Vue.extend({
             }
         },
         itemStyleActive(i: number) {
-            let percentage = i/this.links.length        // item position relative to total items, as percentage
+            let percentage = i / this.links.length        // item position relative to total items, as percentage
             let rotation = this.maxRotationActive * percentage
 
             return {

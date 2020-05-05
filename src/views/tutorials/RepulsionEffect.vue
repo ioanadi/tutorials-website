@@ -1,77 +1,81 @@
 <template>
-    <div class="repulsion-effect">
-        <h1 class="huey-text">Interactive Repulsion Effect <br> With Vue GL</h1>
-        <vgl-renderer ref="renderer" antialias alpha shadow-map-enabled style="height: 70vh;">
-            <vgl-scene>
-                <!-- GRID -->
-                <vgl-box-geometry name="box" width=".5" height=".5" depth=".5" ></vgl-box-geometry>
-                <vgl-cone-geometry name="cone" radius=".3" height=".5" radial-segments="50"></vgl-cone-geometry>
-                <vgl-torus-geometry name="torus" radius=".3" tube=".12" tubular-segments="70" :radial-segments="200"></vgl-torus-geometry>
-                <vgl-mesh-physical-material ref="material" name="material"
-                    :color="`#${[phR, phG, phB].map(v => parseInt(v).toString(16)).map(v => v.length < 2 ? '0' + v : v).join('')}`"
-                ></vgl-mesh-physical-material>
-                <vgl-object3d ref="meshesContainer" v-if="cells.length>0" position="0, 0, 0">
-                    <vgl-mesh receive-shadow cast-shadow 
-                        v-for="(el,i) in cells.flat()" :key="i"
-                        :geometry="el.geometry" material='material'
-                        :position='el.positionXYZ' :rotation="el.rotation" :scale="el.scale"
-                    ></vgl-mesh>
-                </vgl-object3d>
+    <div class="repulsion-effect__container">
+        <div class="repulsion-effect__no-content-message"></div>
+        <h1 class="repulsion-effect__no-content-message-h1">This demo is currently available only on larger resolutions</h1>
+        <div class="repulsion-effect">
+            <h1 class="huey-text">Interactive Repulsion Effect <br> With Vue GL</h1>
+            <vgl-renderer ref="renderer" antialias alpha shadow-map-enabled style="height: 70vh;">
+                <vgl-scene>
+                    <!-- GRID -->
+                    <vgl-box-geometry name="box" width=".5" height=".5" depth=".5" ></vgl-box-geometry>
+                    <vgl-cone-geometry name="cone" radius=".3" height=".5" radial-segments="50"></vgl-cone-geometry>
+                    <vgl-torus-geometry name="torus" radius=".3" tube=".12" tubular-segments="70" :radial-segments="200"></vgl-torus-geometry>
+                    <vgl-mesh-physical-material ref="material" name="material"
+                        :color="`#${[phR, phG, phB].map(v => parseInt(v).toString(16)).map(v => v.length < 2 ? '0' + v : v).join('')}`"
+                    ></vgl-mesh-physical-material>
+                    <vgl-object3d ref="meshesContainer" v-if="cells.length>0" position="0, 0, 0">
+                        <vgl-mesh receive-shadow cast-shadow 
+                            v-for="(el,i) in cells.flat()" :key="i"
+                            :geometry="el.geometry" material='material'
+                            :position='el.positionXYZ' :rotation="el.rotation" :scale="el.scale"
+                        ></vgl-mesh>
+                    </vgl-object3d>
 
-                <!-- SHADOW FLOOR -->
-                <vgl-plane-geometry name="floor" width=100 height=100></vgl-plane-geometry>
-                <vgl-shadow-material name="shadowMat" opacity=.3></vgl-shadow-material>
-                <vgl-mesh ref="floorMesh" geometry="floor" material="shadowMat" receive-shadow :rotation="shadowFloorRotation" visible></vgl-mesh>
+                    <!-- SHADOW FLOOR -->
+                    <vgl-plane-geometry name="floor" width=100 height=100></vgl-plane-geometry>
+                    <vgl-shadow-material name="shadowMat" opacity=.3></vgl-shadow-material>
+                    <vgl-mesh ref="floorMesh" geometry="floor" material="shadowMat" receive-shadow :rotation="shadowFloorRotation" visible></vgl-mesh>
 
-                <!-- LIGHTS -->
-                <vgl-ambient-light
-                    :color="`#${[aR, aG, aB].map(v => parseInt(v).toString(16)).map(v => v.length < 2 ? '0' + v : v).join('')}`"
-                    :intensity='aIntensity'
-                ></vgl-ambient-light>
-                <vgl-rect-area-light
-                    :color="`#${[rR, rG, rB].map(v => parseInt(v).toString(16)).map(v => v.length < 2 ? '0' + v : v).join('')}`"
-                    :intensity="rIntensity" width=1024 height=1024 position="28, 50, 55"
-                ></vgl-rect-area-light>
-                <!-- <vgl-point-light color="#e000ff" distance="65" intentisyt=1 position="13, 27, 5" cast-shadow ></vgl-point-light> -->
-                
-                <!-- CAMERA & HELPERS -->
-                <vgl-perspective-camera
-                    ref="camera" name="camera" 
-                    :position="'18 60 7'" fov=20 :aspect="width/height" near=0.1 far=100 rotation="-1.57"
-                ></vgl-perspective-camera>
-                <vgl-axes-helper size=50 v-if="showAxes"></vgl-axes-helper>
-            </vgl-scene>
-        </vgl-renderer>
-        
-        <div class="control-panel">
-            <a class="repulsion__link-upper" href='https://github.com/ioanadi/tutorials-website/blob/master/src/views/tutorials/RepulsionEffect.vue'> Source code  </a>
-            <h3>Control Panel</h3>
-            <div class="panel__item">
-                <input type="checkbox" v-model="showAxes">&nbsp;
-                <label for="checkbox">Show Axes Helper</label>
+                    <!-- LIGHTS -->
+                    <vgl-ambient-light
+                        :color="`#${[aR, aG, aB].map(v => parseInt(v).toString(16)).map(v => v.length < 2 ? '0' + v : v).join('')}`"
+                        :intensity='aIntensity'
+                    ></vgl-ambient-light>
+                    <vgl-rect-area-light
+                        :color="`#${[rR, rG, rB].map(v => parseInt(v).toString(16)).map(v => v.length < 2 ? '0' + v : v).join('')}`"
+                        :intensity="rIntensity" width=1024 height=1024 position="28, 50, 55"
+                    ></vgl-rect-area-light>
+                    <!-- <vgl-point-light color="#e000ff" distance="65" intentisyt=1 position="13, 27, 5" cast-shadow ></vgl-point-light> -->
+                    
+                    <!-- CAMERA & HELPERS -->
+                    <vgl-perspective-camera
+                        ref="camera" name="camera" 
+                        :position="'18 60 7'" fov=20 :aspect="width/height" near=0.1 far=100 rotation="-1.57"
+                    ></vgl-perspective-camera>
+                    <vgl-axes-helper size=50 v-if="showAxes"></vgl-axes-helper>
+                </vgl-scene>
+            </vgl-renderer>
+            
+            <div class="control-panel">
+                <a class="repulsion__link-upper" href='https://github.com/ioanadi/tutorials-website/blob/master/src/views/tutorials/RepulsionEffect.vue'> Source code  </a>
+                <h3>Control Panel</h3>
+                <div class="panel__item">
+                    <input type="checkbox" v-model="showAxes">&nbsp;
+                    <label for="checkbox">Show Axes Helper</label>
+                </div>
+                <div class="panel__item">
+                    <p>Ambient Light Color</p>
+                    <label>R &nbsp;<input type="range" max="255" v-model="aR"></label>&nbsp;
+                    <label>G &nbsp;<input type="range" max="255" v-model="aG"></label>&nbsp;
+                    <label>B &nbsp;<input type="range" max="255" v-model="aB"></label>
+                </div>
+                <div class="panel__item">
+                    <p>React Area Light Color</p>
+                    <label>R &nbsp;<input type="range" max="255" v-model="rR"></label>&nbsp;
+                    <label>G &nbsp;<input type="range" max="255" v-model="rG"></label>&nbsp;
+                    <label>B &nbsp;<input type="range" max="255" v-model="rB"></label>
+                </div>
+                <div class="panel__item">
+                    <p>Physical Material Color</p>
+                    <label>R &nbsp;<input type="range" max="255" v-model="phR"></label>&nbsp;
+                    <label>G &nbsp;<input type="range" max="255" v-model="phG"></label>&nbsp;
+                    <label>B &nbsp;<input type="range" max="255" v-model="phB"></label>
+                </div>
+                <p>Design by <a href="https://tympanus.net/codrops/2018/12/06/interactive-repulsion-effect-with-three-js/">Interactive Repulsion Effect with Three.js</a> </p>
             </div>
-            <div class="panel__item">
-                <p>Ambient Light Color</p>
-                <label>R &nbsp;<input type="range" max="255" v-model="aR"></label>&nbsp;
-                <label>G &nbsp;<input type="range" max="255" v-model="aG"></label>&nbsp;
-                <label>B &nbsp;<input type="range" max="255" v-model="aB"></label>
-            </div>
-            <div class="panel__item">
-                <p>React Area Light Color</p>
-                <label>R &nbsp;<input type="range" max="255" v-model="rR"></label>&nbsp;
-                <label>G &nbsp;<input type="range" max="255" v-model="rG"></label>&nbsp;
-                <label>B &nbsp;<input type="range" max="255" v-model="rB"></label>
-            </div>
-            <div class="panel__item">
-                <p>Physical Material Color</p>
-                <label>R &nbsp;<input type="range" max="255" v-model="phR"></label>&nbsp;
-                <label>G &nbsp;<input type="range" max="255" v-model="phG"></label>&nbsp;
-                <label>B &nbsp;<input type="range" max="255" v-model="phB"></label>
-            </div>
-            <p>Design by <a href="https://tympanus.net/codrops/2018/12/06/interactive-repulsion-effect-with-three-js/">Interactive Repulsion Effect with Three.js</a> </p>
+
+            <span class="credits">Photo by Annie Spratt on Unsplash</span>
         </div>
-
-        <span class="credits">Photo by Annie Spratt on Unsplash</span>
     </div>
 </template>
 
@@ -224,13 +228,41 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+
+.repulsion-effect__container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(rgb(232, 234, 233), rgb(255, 255, 255));
+    .repulsion-effect__no-content-message {
+        display: flex;
+        height: 200px;
+        width: 300px;
+        background-image: url(../../../public/oupsy_dog.jpg);
+        background-size: cover;
+        @media (min-width: 700px) {
+            height: 300px;
+            width: 400px;
+        }
+        @media (min-width: 992px) { display: none;}
+    }
+    .repulsion-effect__no-content-message-h1 {
+        text-align: center;
+        @media (min-width: 992px) { display: none; } 
+    }
+} 
 .repulsion-effect {
-    display: block;
-    height: 100%;
-    background: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), url('../../../public/annie-spratt.jpg');
-    background-attachment: fixed;
-    background-position: bottom;
-    position: relative;
+    display: none;
+    @media (min-width: 992px) { 
+        display: block;
+        height: 100%;
+        background: linear-gradient(rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.25)), url('../../../public/annie-spratt.jpg');
+        background-attachment: fixed;
+        background-position: bottom;
+        position: relative;
+    }
     h1 {
         position: absolute;
         top: 12rem;

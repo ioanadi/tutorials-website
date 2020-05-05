@@ -39,24 +39,20 @@
             <h1 class="home__s3-title">explore</h1>
             <div class="home__s3-gallery gallery-appear">
                 <div class='home__s3-card'>
-                    <!-- <div class="home__s3-card-content"> -->
-                        <h2>Simple UI</h2>
-                        <p>
-                            A mere hint of complexity could lie at the heart of a website. Vuejs simplifies writing powerful code for complex structures. 
-                            Check out some examples: <router-link :to='"/tutorials/fan"'> swatch book</router-link>.or <router-link :to='"/tutorials/explosion"'>image exploding effect</router-link>.
-                        </p>                        
-                    <!-- </div> -->
+                    <h2>Simple UI</h2>
+                    <p>
+                        A mere hint of complexity could lie at the heart of a website. Vuejs simplifies writing powerful code for complex structures. 
+                        Check out some examples: <router-link :to='"/tutorials/fan"'> swatch book</router-link>.or <router-link :to='"/tutorials/explosion"'>image exploding effect</router-link>.
+                    </p>                        
                 </div>
                 <div class='home__s3-card'>
-                    <!-- <div class="home__s3-card-content"> -->
-                        <h2>3D with VGL</h2>
-                        <p>
-                            3d effects engage the user and enhances the messge of a website. 
-                            <a href="https://threejs.org/">Three.js</a> is a js popular library which uses WebGL and it's been integrated
-                             in a vue based library - <a href="https://vue-gl.github.io/">Vue-Gl</a>.
-                            To discover it better,<router-link :to="'/tutorials/repulsion'">check out a repulsion 3D effect </router-link>.
-                        </p>
-                    <!-- </div> -->
+                    <h2>3D with VGL</h2>
+                    <p>
+                        3d effects engage the user and enhances the messge of a website. 
+                        <a href="https://threejs.org/">Three.js</a> is a js popular library which uses WebGL and it's been integrated
+                            in a vue based library - <a href="https://vue-gl.github.io/">Vue-Gl</a>.
+                        To discover it better,<router-link :to="'/tutorials/repulsion'">check out a repulsion 3D effect </router-link>.
+                    </p>
                 </div>
             </div>
         </section>
@@ -95,8 +91,10 @@ import router from '../router'
 const scrollToS2 = function() { document.getElementsByClassName('home__section2')[0].scrollIntoView() }
 const scrollToS3 = function() { document.getElementsByClassName('home__section3')[0].scrollIntoView() }
 const scrollToS4 = function() { document.getElementsByClassName('home__section4')[0].scrollIntoView() }
+
 function openInNewTab(url: string) {
     var win = window.open(url, '_blank')
+
     if(win) win.focus()
 }
 const NAV_DOTS = [
@@ -186,6 +184,7 @@ export default Vue.extend({
     },
     methods: {
         onResize(event: any) {
+            // Remove some animtions on lower resolutions //
             let innerWidth = event ? event.srcElement.innerWidth : window.innerWidth
 
             if(innerWidth < 600) {
@@ -242,13 +241,13 @@ $dot-width: 75px;
         color: white;
         h1 {
             margin: 0;
+            font-size: 2.5rem;
             text-align: center;
             line-height: 1.2;
-            font-size: 2.5rem;
             letter-spacing: 1.25rem;
             text-transform: uppercase;
             opacity: 1; 
-            @media (min-width: 769px) {
+            @media (min-width: 992px) {
                 font-size: 4.5rem;
             }
         }
